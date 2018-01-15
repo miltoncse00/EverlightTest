@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace Everlight.Logic
 {
     public class PreOrderTraversal : BinaryTreeTranversal

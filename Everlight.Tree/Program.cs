@@ -21,6 +21,24 @@ namespace Everlight.Tree
             traversal.Traverse(tree);
             var randomGateVisitor = new RandomGateSetterVisitor();
             traversal.Traverse(tree, randomGateVisitor);
+
+            Console.WriteLine("Please enter number of balls");
+            var ballCount = Convert.ToInt32(Console.ReadLine());
+            BallStrategy strategy = new BallStrategy(tree);
+            for (int i = 0; i < ballCount; i++)
+            {
+                strategy.SetBall();
+            }
+            var childNodeVisitor = new ChildNodeVisitor();
+            traversal.Traverse(tree, childNodeVisitor);
+            Console.WriteLine("Position of the hole from left to right which is empty");
+            for(int i=0; i<childNodeVisitor.ChildNodes.Count;i++)
+            {
+                if(childNodeVisitor.ChildNodes[i].HasBall==false)
+                {
+                    Console.WriteLine(string.Format("Position {0} is empty", i + 1));
+                }
+            }
             Console.ReadLine();
         }
     }

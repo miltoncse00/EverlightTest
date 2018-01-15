@@ -4,7 +4,6 @@ namespace Everlight.Logic
 {
     public class BinaryTreeModel
     {
-
         public Node CreateFullTree(int depth, int tag)
         {
             var random = new Random();
