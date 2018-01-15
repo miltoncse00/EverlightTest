@@ -22,21 +22,21 @@ namespace Everlight.Logic
         {
             if (tree != null)
             {
-                if (tree.left == null && tree.right == null)
+                if (tree.Left == null && tree.Right == null)
                 {
-                    tree.hasBall = true;
+                    tree.HasBall = true;
                     return;
                 }
-                else if (tree.gateToLeft)
+                else if (tree.GateToLeft)
                 {
-                    tree.gateToLeft = false;
-                    SetBall(tree.left);
+                    tree.GateToLeft = false;
+                    SetBall(tree.Left);
 
                 }
                 else
                 {
-                    tree.gateToLeft = true;
-                    SetBall(tree.right);
+                    tree.GateToLeft = true;
+                    SetBall(tree.Right);
 
                 }
             }

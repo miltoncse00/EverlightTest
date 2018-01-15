@@ -13,10 +13,7 @@ namespace Everlight.Tree.Tests
     [TestClass]
     public class BinaryTreeTest
     {
-        static int max;
-
-        public List<Node> ChildNodeList = new List<Node>();
-        public BinaryTreeTest()
+         public BinaryTreeTest()
         {
             //
             // TODO: Add constructor logic here
@@ -69,9 +66,11 @@ namespace Everlight.Tree.Tests
             BinaryTreeModel model = new BinaryTreeModel();
             var depth = 4;
             var node = model.CreateFullTree(depth, 0);
-            max = 0;
-            FindMaxNodeValue(node);
-            max.Should().Be(depth);
+            var maxNodeVisitor = new MaxNodeVisitor();
+            var traversal = new PreOrderTraversal();
+            traversal.Traverse(node, maxNodeVisitor);
+           
+            maxNodeVisitor.MaxValue.Should().Be(depth);
         }
 
         [TestMethod]
@@ -81,15 +80,18 @@ namespace Everlight.Tree.Tests
             BinaryTreeModel model = new BinaryTreeModel();
             var depth = 1;
             var node = model.CreateFullTree(depth, 0);
-            model.SetGate(node, true);
-            max = 0;
+            var nodeTraversal = new PreOrderTraversal();
+            var defaultGateVisitor = new SetDefaultGateVisitor();
+            defaultGateVisitor.GateToLeft = true;
+            nodeTraversal.Traverse(node, defaultGateVisitor);
             BallStrategy strategy = new BallStrategy(node);
             strategy.SetBall();
-            ChildNodeList = new List<Node>();
-            FindChildNodes(node);
-            ChildNodeList.Count.Should().Be(2);
-            ChildNodeList[0].hasBall.Should().BeTrue();
-            node.gateToLeft.Should().BeFalse();
+
+            var childNodeVisitor = new ChildNodeVisitor();
+            nodeTraversal.Traverse(node, childNodeVisitor);
+            childNodeVisitor.ChildNodes.Count.Should().Be(2);
+            childNodeVisitor.ChildNodes[0].HasBall.Should().BeTrue();
+            node.GateToLeft.Should().BeFalse();
         }
 
         [TestMethod]
@@ -99,51 +101,59 @@ namespace Everlight.Tree.Tests
             BinaryTreeModel model = new BinaryTreeModel();
             var depth = 2;
             var node = model.CreateFullTree(depth, 0);
-            model.SetGate(node, true);
-            max = 0;
+            var nodeTraversal = new PreOrderTraversal();
+            var defaultGateVisitor = new SetDefaultGateVisitor();
+            defaultGateVisitor.GateToLeft = true;
+            nodeTraversal.Traverse(node, defaultGateVisitor);
+
             BallStrategy strategy = new BallStrategy(node);
             var ballCount = 2;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < ballCount; i++)
             {
                 strategy.SetBall();
             }
-            ChildNodeList = new List<Node>();
-            FindChildNodes(node);
-            ChildNodeList.Count.Should().Be(4);
-            ChildNodeList[0].hasBall.Should().BeTrue();
-            ChildNodeList[1].hasBall.Should().BeFalse();
+            var childNodeVisitor = new ChildNodeVisitor();
+            nodeTraversal.Traverse(node, childNodeVisitor);
+            childNodeVisitor.ChildNodes.Count.Should().Be(4);
+            childNodeVisitor.ChildNodes[0].HasBall.Should().BeTrue();
+            childNodeVisitor.ChildNodes[1].HasBall.Should().BeFalse();
 
-            ChildNodeList[2].hasBall.Should().BeTrue();
-            ChildNodeList[3].hasBall.Should().BeFalse();
+            childNodeVisitor.ChildNodes[2].HasBall.Should().BeTrue();
+            childNodeVisitor.ChildNodes[3].HasBall.Should().BeFalse();
 
-            node.gateToLeft.Should().BeTrue();
+            node.GateToLeft.Should().BeTrue();
         }
 
 
-        public void FindChildNodes(Node node)
+        [TestMethod]
+        public void GivenATreeWithDepth2WhenGetIsSetGateRightDrop3BallShouldReceiveBall()
         {
-            if (node != null)
+
+            BinaryTreeModel model = new BinaryTreeModel();
+            var depth = 2;
+            var node = model.CreateFullTree(depth, 0);
+            var nodeTraversal = new PreOrderTraversal();
+            var defaultGateVisitor = new SetDefaultGateVisitor();
+            defaultGateVisitor.GateToLeft = false;
+            nodeTraversal.Traverse(node, defaultGateVisitor);
+
+            BallStrategy strategy = new BallStrategy(node);
+            var ballCount = 3;
+            for (int i = 0; i < ballCount; i++)
             {
-                if (node.left==null && node.right==null)
-                {
-                    ChildNodeList.Add(node);
-                }
-                FindChildNodes(node.left);
-                FindChildNodes(node.right);
+                strategy.SetBall();
             }
+            var childNodeVisitor = new ChildNodeVisitor();
+            nodeTraversal.Traverse(node, childNodeVisitor);
+            childNodeVisitor.ChildNodes.Count.Should().Be(4);
+            childNodeVisitor.ChildNodes[0].HasBall.Should().BeFalse();
+            childNodeVisitor.ChildNodes[1].HasBall.Should().BeTrue();
+
+            childNodeVisitor.ChildNodes[2].HasBall.Should().BeTrue();
+            childNodeVisitor.ChildNodes[3].HasBall.Should().BeTrue();
+
+            node.GateToLeft.Should().BeTrue();
         }
 
-        public void FindMaxNodeValue(Node node)
-        {
-            if (node != null)
-            {
-                if(node.value >max)
-                {
-                    max = node.value;
-                }
-                FindMaxNodeValue(node.left);
-                FindMaxNodeValue(node.right);
-            }
-        }
     }
 }

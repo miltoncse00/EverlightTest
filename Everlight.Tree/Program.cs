@@ -16,7 +16,11 @@ namespace Everlight.Tree
             depth = Convert.ToInt32(Console.ReadLine());
             BinaryTreeModel model = new BinaryTreeModel();
              var tree =model.CreateFullTree(depth,1);
-            model.PreOrder(tree);
+            
+            BinaryTreeTranversal traversal = new PreOrderTraversal();
+            traversal.Traverse(tree);
+            var randomGateVisitor = new RandomGateSetterVisitor();
+            traversal.Traverse(tree, randomGateVisitor);
             Console.ReadLine();
         }
     }

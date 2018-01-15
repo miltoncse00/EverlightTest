@@ -48,8 +48,16 @@
   <ItemGroup>
     <Compile Include="BallStrategy.cs" />
     <Compile Include="BinaryTreeModel.cs" />
+    <Compile Include="BinaryTreeTranversal.cs" />
+    <Compile Include="ChildNodeVisitor.cs" />
+    <Compile Include="DisplayVisitor.cs" />
+    <Compile Include="MaxNodeVisitor.cs" />
+    <Compile Include="NodeVisitor.cs" />
+    <Compile Include="PreOrderTraversal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="RandomGateSetterVisitor.cs" />
+    <Compile Include="SetDefaultGateVisitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

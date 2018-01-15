@@ -1,0 +1,8 @@
+﻿1>------ Build started: Project: Everlight.Logic, Configuration: Debug Any CPU ------
+1>  Everlight.Logic -> C:\Users\milto\onedrive\documents\visual studio 2015\Projects\Everlight.Tree\Everlight.Logic\bin\Debug\Everlight.Logic.dll
+2>------ Build started: Project: Everlight.Tree, Configuration: Debug Any CPU ------
+3>------ Build started: Project: Everlight.Tree.Tests, Configuration: Debug Any CPU ------
+2>  Everlight.Tree -> C:\Users\milto\onedrive\documents\visual studio 2015\Projects\Everlight.Tree\Everlight.Tree\bin\Debug\Everlight.Tree.exe
+3>C:\Users\milto\onedrive\documents\visual studio 2015\Projects\Everlight.Tree\Everlight.Tree.Tests\BinaryTreeTest.cs(110,17,110,26): warning CS0219: The variable 'ballCount' is assigned but its value is never used
+3>  Everlight.Tree.Tests -> C:\Users\milto\onedrive\documents\visual studio 2015\Projects\Everlight.Tree\Everlight.Tree.Tests\bin\Debug\Everlight.Tree.Tests.dll
+========== Build: 3 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
